@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import ChatMessage from './ChatMessage'
+import { useParams } from 'react-router-dom';
 
 function ChatViewer() {
     const [chatData, setChatData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { chatId } = useParams();
 
     useEffect(() => {
         const fetchChatData = async () => {
             try {
-                const response = await fetch('https://claude-share.roht.workers.dev/chats/10');
+                const response = await fetch(`https://claude-share.roht.workers.dev/chats/${chatId}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
