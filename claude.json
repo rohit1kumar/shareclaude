@@ -1,0 +1,102 @@
+{
+    "uuid": "c38d16f5-945f-46f0-bd9c-dbc8955a4981",
+    "name": "Friendly Greeting",
+    "chat_messages": [
+        {
+            "uuid": "0b297740-98a4-4187-8faa-afa7b11b8d96",
+            "text": "Hi",
+            "sender": "human",
+            "index": 0,
+            "created_at": "2024-08-20T06:45:43.346831+00:00",
+            "updated_at": "2024-08-20T06:45:43.346831+00:00",
+            "truncated": false,
+            "attachments": [],
+            "files": [],
+            "parent_message_uuid": "00000000-0000-4000-8000-000000000000"
+        },
+        {
+            "uuid": "93965369-f563-44df-86b0-ed0635af7cb8",
+            "text": " Hello! How can I assist you today?",
+            "sender": "assistant",
+            "index": 1,
+            "created_at": "2024-08-20T06:45:43.346831+00:00",
+            "updated_at": "2024-08-20T06:45:43.346831+00:00",
+            "truncated": false,
+            "attachments": [],
+            "files": [],
+            "parent_message_uuid": "0b297740-98a4-4187-8faa-afa7b11b8d96"
+        },
+        {
+            "uuid": "3d6a9178-8a2b-47f8-93cf-9c125122bc6f",
+            "text": "Hi",
+            "sender": "human",
+            "index": 2,
+            "created_at": "2024-08-20T06:45:54.295692+00:00",
+            "updated_at": "2024-08-20T06:45:54.295692+00:00",
+            "truncated": false,
+            "attachments": [],
+            "files": [],
+            "parent_message_uuid": "93965369-f563-44df-86b0-ed0635af7cb8"
+        },
+        {
+            "uuid": "e5c3c3f5-c094-4939-bf32-d5a446f29197",
+            "text": " Hello again. Is there anything specific you'd like help with or discuss today?",
+            "sender": "assistant",
+            "index": 3,
+            "created_at": "2024-08-20T06:45:54.295692+00:00",
+            "updated_at": "2024-08-20T06:45:54.295692+00:00",
+            "truncated": false,
+            "attachments": [],
+            "files": [],
+            "parent_message_uuid": "3d6a9178-8a2b-47f8-93cf-9c125122bc6f"
+        },
+        {
+            "uuid": "44cc7177-341d-4c76-8f31-5332d1baedda",
+            "text": "Can u write a small express server",
+            "sender": "human",
+            "index": 4,
+            "created_at": "2024-08-20T06:46:17.016705+00:00",
+            "updated_at": "2024-08-20T06:46:17.016705+00:00",
+            "truncated": false,
+            "attachments": [],
+            "files": [],
+            "parent_message_uuid": "e5c3c3f5-c094-4939-bf32-d5a446f29197"
+        },
+        {
+            "uuid": "e9c6eb64-d153-4a51-8379-50ebe757af13",
+            "text": " Certainly. I'll write a small Express server for you. Here's a basic example:\n\n```javascript\nconst express = require('express');\nconst app = express();\nconst port = 3000;\n\n// Middleware to parse JSON bodies\napp.use(express.json());\n\n// Root route\napp.get('/', (req, res) => {\n  res.send('Hello, World!');\n});\n\n// Sample POST route\napp.post('/api/data', (req, res) => {\n  const data = req.body;\n  res.json({ message: 'Data received', data: data });\n});\n\n// Start the server\napp.listen(port, () => {\n  console.log(`Server running at http://localhost:${port}`);\n});\n```\n\nWould you like me to explain or break down this code?",
+            "sender": "assistant",
+            "index": 5,
+            "created_at": "2024-08-20T06:46:17.016705+00:00",
+            "updated_at": "2024-08-20T06:46:17.016705+00:00",
+            "truncated": false,
+            "attachments": [],
+            "files": [],
+            "parent_message_uuid": "44cc7177-341d-4c76-8f31-5332d1baedda"
+        },
+        {
+            "uuid": "f6bf9349-a9e6-471d-896d-0d9d50f272c5",
+            "text": "how to take query",
+            "sender": "human",
+            "index": 6,
+            "created_at": "2024-08-20T06:50:10.934255+00:00",
+            "updated_at": "2024-08-20T06:50:10.934255+00:00",
+            "truncated": false,
+            "attachments": [],
+            "files": [],
+            "parent_message_uuid": "e9c6eb64-d153-4a51-8379-50ebe757af13"
+        },
+        {
+            "uuid": "16f54142-a0d1-4631-ac89-a881c2325eb8",
+            "text": " To handle query parameters in an Express server, you can use the `req.query` object. Here's an example of how to modify the previous server to include a route that handles query parameters:\n\n```javascript\nconst express = require('express');\nconst app = express();\nconst port = 3000;\n\napp.use(express.json());\n\n// Root route\napp.get('/', (req, res) => {\n  res.send('Hello, World!');\n});\n\n// Route with query parameters\napp.get('/api/search', (req, res) => {\n  const { q, limit } = req.query;\n  res.json({\n    message: 'Search request received',\n    searchTerm: q,\n    limit: limit ? parseInt(limit) : 10\n  });\n});\n\napp.listen(port, () => {\n  console.log(`Server running at http://localhost:${port}`);\n});\n```\n\nWould you like me to explain how this code handles query parameters?",
+            "sender": "assistant",
+            "index": 7,
+            "created_at": "2024-08-20T06:50:10.934255+00:00",
+            "updated_at": "2024-08-20T06:50:10.934255+00:00",
+            "truncated": false,
+            "attachments": [],
+            "files": [],
+            "parent_message_uuid": "f6bf9349-a9e6-471d-896d-0d9d50f272c5"
+        }
+    ]
+}

@@ -1,0 +1,38 @@
+{
+    "id": 6,
+    "title": "Friendly Greeting",
+    "content": [
+        {
+            "source": "user",
+            "message": "Hi"
+        },
+        {
+            "source": "claude",
+            "message": "Hello! How can I assist you today?"
+        },
+        {
+            "source": "user",
+            "message": "Hi"
+        },
+        {
+            "source": "claude",
+            "message": "Hello again. Is there anything specific you'd like help with or discuss today?"
+        },
+        {
+            "source": "user",
+            "message": "Can u write a small express server"
+        },
+        {
+            "source": "claude",
+            "message": "Certainly. I'll write a small Express server for you. Here's a basic example:```javascript const express = require('express');\nconst app = express();\nconst port = 3000;\n\n// Middleware to parse JSON bodies\napp.use(express.json());\n\n// Root route\napp.get('/', (req, res) => {\n  res.send('Hello, World!');\n});\n\n// Sample POST route\napp.post('/api/data', (req, res) => {\n  const data = req.body;\n  res.json({ message: 'Data received', data: data });\n});\n\n// Start the server\napp.listen(port, () => {\n  console.log(`Server running at http://localhost:${port}`);\n});\n``` \nWould you like me to explain or break down this code?"
+        },
+        {
+            "source": "user",
+            "message": "how to take query"
+        },
+        {
+            "source": "claude",
+            "message": "To handle query parameters in an Express server, you can use the req.query object. Here's an example of how to modify the previous server to include a route that handles query parameters:\njavascript const express = require('express');\nconst app = express();\nconst port = 3000;\n\napp.use(express.json());\n\n// Root route\napp.get('/', (req, res) => {\n  res.send('Hello, World!');\n});\n\n// Route with query parameters\napp.get('/api/search', (req, res) => {\n  const { q, limit } = req.query;\n  res.json({\n    message: 'Search request received',\n    searchTerm: q,\n    limit: limit ? parseInt(limit) : 10\n  });\n});\n\napp.listen(port, () => {\n  console.log(`Server running at http://localhost:${port}`);\n});\nWould you like me to explain how this code handles query parameters?"
+        }
+    ]
+}
