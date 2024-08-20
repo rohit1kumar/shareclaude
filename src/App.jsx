@@ -12,7 +12,7 @@ function App() {
         <h1 className='text-3xl font-bold mb-8 text-gray-800'>Claude Chats</h1>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/chats/:chatId" element={<ChatViewer />} />
+          <Route path="/c/:chatId" element={<ChatViewer />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
