@@ -1,5 +1,5 @@
-const API_URL = 'https://claudeshare.pages.dev/api/chats';
-const PAGE_URL = 'https://claudeshare.pages.dev/c'
+const API_URL = 'https://shareclaude.pages.dev/api/chats';
+const PAGE_URL = 'https://shareclaude.pages.dev/c'
 
 function getUUID() {
     const match = window.location.href.match(/\/chat\/([^\/]+)/);
