@@ -25,7 +25,7 @@ function ChatViewer() {
         };
 
         fetchChatData();
-    }, []);
+    }, [chatId]);
 
     if (loading) return <p className="text-center text-gray-600">Loading...</p>;
     if (error) return <p className="text-center text-red-600">Error: {error}</p>;
