@@ -1,0 +1,27 @@
+{
+    "manifest_version": 3,
+    "name": "ClaudeShare",
+    "description": "Share your Claude AI chat with one click",
+    "version": "0.1.0",
+    "permissions": [
+        "activeTab",
+        "scripting"
+    ],
+    "host_permissions": [
+        "https://claude.ai/*",
+        "https://api.claude.ai/*"
+    ],
+    "icons": {
+        "128": "images/icon-128.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://claude.ai/chat/*"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ]
+}
