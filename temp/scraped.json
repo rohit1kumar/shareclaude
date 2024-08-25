@@ -1,7 +1,7 @@
 {
     "id": 6,
     "title": "Friendly Greeting",
-    "content": [
+    "contents": [
         {
             "source": "user",
             "message": "Hi"
