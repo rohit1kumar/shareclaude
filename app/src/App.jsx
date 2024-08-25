@@ -1,9 +1,10 @@
-import React from 'react'
-import './index.css'
-import ChatViewer from './components/ChatViewer'
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
-import Home from './pages/Home'
-import NotFound from './pages/NotFound'
+import React, { Suspense, lazy } from 'react';
+import './index.css';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+
+const Home = lazy(() => import('./pages/Home'));
+const ChatViewer = lazy(() => import('./components/ChatViewer'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 function App() {
   return (
@@ -12,11 +13,13 @@ function App() {
         <Link to="/">
           <h1 className='text-3xl font-bold mb-8 text-gray-800'>Claude Chats</h1>
         </Link>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/c/:chatId" element={<ChatViewer />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<div className='text-center text-gray-600'>Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/c/:chatId" element={<ChatViewer />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </div>
     </Router>
   )
