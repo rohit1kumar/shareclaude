@@ -39,6 +39,7 @@ pages_build_output_dir = "./dist"
 [[d1_databases]]
 binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "claudeshare_db"
+migrations_dir = "./database/migrations"
 database_id = "d0d75916-2f2f-4bac-bfeb-de56d5fa1afe"
 
 # Bind a dispatch namespace. Use Workers for Platforms to deploy serverless functions programmatically on behalf of your customers.
