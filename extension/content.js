@@ -1,4 +1,4 @@
-const API_URL = 'https://claude-share.roht.workers.dev/chats';
+const API_URL = 'https://claudeshare.pages.dev/api/chats';
 const PAGE_URL = 'https://claudeshare.pages.dev/c'
 
 function getUUID() {
