@@ -2,7 +2,7 @@ import { sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { sql } from "drizzle-orm";
 import { createId } from '@paralleldrive/cuid2';
 
-export const chats = sqliteTable('chats', {
+export const chatsSchema = sqliteTable('chats', {
     id: text('id').$defaultFn(() => createId()).primaryKey(),
     title: text('title', { length: 512 }).notNull(),
     content: text('content', { mode: 'json' }),
