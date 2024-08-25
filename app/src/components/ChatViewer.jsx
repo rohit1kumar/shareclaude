@@ -11,7 +11,7 @@ function ChatViewer() {
     useEffect(() => {
         const fetchChatData = async () => {
             try {
-                const response = await fetch(`api/chats/${chatId}`);
+                const response = await fetch(`/api/chats/${chatId}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
