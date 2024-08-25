@@ -1,5 +1,5 @@
 {
-  "name": "sample",
+  "name": "claudeshare",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "wrangler d1 migrations apply claudeshare_db"
+    "db:migrate": "wrangler d1 migrations apply claudeshare_db --remote"
   },
   "dependencies": {
     "@paralleldrive/cuid2": "^2.2.2",

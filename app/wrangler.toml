@@ -39,8 +39,8 @@ pages_build_output_dir = "./dist"
 [[d1_databases]]
 binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "claudeshare_db"
-migrations_dir = "./database/migrations"
-database_id = "d0d75916-2f2f-4bac-bfeb-de56d5fa1afe"
+migrations_dir= "./database/migrations"
+database_id = "4dd816ee-e1f8-4968-a0f8-6b4c2a6eb80b"
 
 # Bind a dispatch namespace. Use Workers for Platforms to deploy serverless functions programmatically on behalf of your customers.
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#dispatch-namespace-bindings-workers-for-platforms
