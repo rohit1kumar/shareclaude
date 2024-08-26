@@ -1,6 +1,6 @@
 # [ShareClaude](https://shareclaude.pages.dev)
 
-## Share your [Claude](https://claude.ai) chats with one click
+## Chrome Extension to share your [Claude](https://claude.ai) chats with one click
 
 ### How to use
 
