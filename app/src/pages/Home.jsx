@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import videoThumbnail from '../assets/video-thumbnail.jpg'
+import thumbnail from '../assets/thumbnail.webp'
+import video from '../assets/video.webm'
 
 function Home() {
     return (
@@ -25,15 +26,15 @@ function Home() {
                     View a Chat
                 </Link>
             </div>
-            <div className="aspect-video overflow-hidden rounded-lg border border-gray-600 shadow-lg shadow-shareClaude-accent/30 hover:shadow-shareClaude-accent/50 transition-all duration-300">
+            <div className="aspect-video overflow-hidden rounded-xl border border-gray-600 shadow-lg shadow-shareClaude-accent/50 hover:shadow-shareClaude-accent/80 transition-all duration-300">
                 <video
                     controls
-                    disablepictureinpicture
+                    disablePictureInPicture
                     controlsList="nodownload noplaybackrate noremoteplayback"
-                    src="https://i.imgur.com/NRAM7Lf.mp4"
+                    src={video}
                     className="w-full h-full"
-                    type="video/mp4"
-                    poster={videoThumbnail}
+                    type="video/webm"
+                    poster={thumbnail}
                 >
                     Your browser does not support the video tag.
                 </video>
