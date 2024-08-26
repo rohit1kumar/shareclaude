@@ -16,6 +16,7 @@ function ChatViewer() {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 const data = await response.json();
+                document.title = data?.title ?? 'Chats - ShareClaude';
                 setChatData(data);
             } catch (err) {
                 setError(err.message);
