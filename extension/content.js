@@ -101,10 +101,6 @@ function addShareButton() {
         } else {
             button.textContent = '❌';
             button.style.backgroundColor = '#f44336';
-            setTimeout(() => {
-                button.textContent = 'Share';
-                button.style.backgroundColor = '#d97757';
-            }, 2000);
         }
     });
 
