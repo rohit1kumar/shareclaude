@@ -1,6 +1,6 @@
-# ShareClaude
+# [ShareClaude](https://shareclaude.pages.dev)
 
-## Share your Claude AI chat with one click
+## Share your [Claude](https://claude.ai) chats with one click
 
 ### How to use
 
