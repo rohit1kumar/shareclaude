@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
-    "name": "ClaudeShare",
-    "description": "Share your Claude AI chat with one click",
+    "name": "ShareClaude",
+    "description": "Share your Claude chats with one click",
     "version": "0.1.0",
     "permissions": [
         "activeTab",
