@@ -9,11 +9,11 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 function App() {
   return (
     <Router>
-      <div className='min-h-screen bg-gray-100 flex flex-col items-center justify-center'>
+      <div className='min-h-screen bg-shareClaude-background flex flex-col items-center justify-center p-4'>
         <Link to="/">
-          <h1 className='text-3xl font-bold mb-8 text-gray-800'>ShareClaude</h1>
+          <h1 className='text-3xl font-bold mb-8 text-shareClaude-accent'>ShareClaude</h1>
         </Link>
-        <Suspense fallback={<div className='text-center text-gray-600'>Loading...</div>}>
+        <Suspense fallback={<div className='text-center text-gray-400'>Loading...</div>}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/c/:chatId" element={<ChatViewer />} />

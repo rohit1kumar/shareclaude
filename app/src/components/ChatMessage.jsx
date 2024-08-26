@@ -10,14 +10,14 @@ function ChatMessage({ index, chat }) {
     return (
         <div
             key={index}
-            className={`p-4 rounded-lg shadow-sm ${isUser ? 'bg-emerald-100' : 'bg-amber-100'}`}
+            className={`p-3 sm:p-4 rounded-lg ${isUser ? 'bg-shareClaude-userChat' : 'bg-shareClaude-claudeChat'}`}
         >
-            <strong className="block text-indigo-700 mb-2">
+            <strong className="block text-shareClaude-accent mb-2">
                 {isUser ? 'User:' : 'Claude:'}
             </strong>
 
             <Markdown
-                className="prose prose-sm max-w-none text-gray-800"
+                className="prose prose-sm max-w-none text-gray-200 break-words"
                 remarkPlugins={[remarkGfm]}
                 components={{
                     code({ node, inline, className, children, ...props }) {
@@ -25,13 +25,13 @@ function ChatMessage({ index, chat }) {
                             <SyntaxHighlighter
                                 language="javascript"
                                 style={dracula}
-                                className="rounded-md"
+                                className="rounded-md text-sm overflow-x-auto bg-shareClaude-codeBox"
                                 {...props}
                             >
                                 {String(children).replace(/\n$/, '')}
                             </SyntaxHighlighter>
                         ) : (
-                            <code className="bg-gray-200 rounded px-1 py-0.5" {...props}>
+                            <code className="bg-shareClaude-codeBox rounded px-1 py-0.5 text-sm" {...props}>
                                 {children}
                             </code>
                         );
@@ -41,7 +41,6 @@ function ChatMessage({ index, chat }) {
                 {chat.message}
             </Markdown>
         </div>
-
     )
 }
 

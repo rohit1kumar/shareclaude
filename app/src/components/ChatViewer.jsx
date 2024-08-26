@@ -27,13 +27,13 @@ function ChatViewer() {
         fetchChatData();
     }, [chatId]);
 
-    if (loading) return <p className="text-center text-gray-600">Loading...</p>;
+    if (loading) return <p className="text-center text-gray-400">Loading...</p>;
     if (error) return <p className="text-center text-red-600">Error: {error}</p>;
 
     return (
-        <div className="max-w-2xl mx-auto p-6 bg-gray-100 shadow-md rounded-lg">
-            <h2 className="text-2xl font-semibold mb-4 text-indigo-800">{chatData?.title}</h2>
-            <div className="space-y-6">
+        <div className="w-full max-w-2xl mx-auto p-4 bg-shareClaude-background rounded-lg">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-gray-200">{chatData?.title}</h2>
+            <div className="space-y-4">
                 {chatData?.content.map((chat, index) => (
                     <ChatMessage key={index} chat={chat} />
                 ))}
