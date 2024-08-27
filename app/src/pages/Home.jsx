@@ -1,13 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import thumbnail from '../assets/thumbnail.webp'
-import video from '../assets/video.webm'
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 
 function Home() {
     return (
         <div className="w-full max-w-2xl mx-auto p-6 bg-shareClaude-background rounded-lg text-center">
-            <p className="text-xl sm:text-2xl font-semibold mb-6 text-gray-200">
-                Chrome Extension to share Claude chats with one click
+            <p className="text-lg sm:text-xl font-semibold mb-6 text-gray-200">
+                Chrome Extension to Share Claude Chats with One Click
             </p>
             <div className="mb-6 flex justify-center gap-4 items-center">
                 <Link
@@ -27,17 +28,12 @@ function Home() {
                 </Link>
             </div>
             <div className="aspect-video overflow-hidden rounded-xl border border-gray-600 shadow-lg shadow-shareClaude-accent/50 hover:shadow-shareClaude-accent/80 transition-all duration-300">
-                <video
-                    controls
-                    disablePictureInPicture
-                    controlsList="nodownload noplaybackrate noremoteplayback"
-                    src={video}
-                    className="w-full h-full"
-                    type="video/webm"
-                    poster={thumbnail}
-                >
-                    Your browser does not support the video tag.
-                </video>
+                <LiteYouTubeEmbed
+                    id="OHkNa85A_fg"
+                    // poster="default"
+                    thumbnail={thumbnail}
+                    title="ShareClaude - Chrome Extension for Sharing Claude Conversations"
+                />
             </div>
         </div >
     )

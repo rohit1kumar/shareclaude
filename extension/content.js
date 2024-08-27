@@ -98,6 +98,7 @@ function addShareButton() {
             navigator.clipboard.writeText(shareURL);
             button.textContent = '📋';
             button.style.backgroundColor = '#4CAF50';
+            window.open(shareURL, '_blank');
         } else {
             button.textContent = '❌';
             button.style.backgroundColor = '#f44336';

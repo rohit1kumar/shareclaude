@@ -1,6 +1,5 @@
 import React from 'react'
 import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
@@ -18,7 +17,6 @@ function ChatMessage({ index, chat }) {
 
             <Markdown
                 className="prose prose-sm max-w-none text-gray-200 break-words"
-                remarkPlugins={[remarkGfm]}
                 components={{
                     code({ node, inline, className, children, ...props }) {
                         return !inline ? (
