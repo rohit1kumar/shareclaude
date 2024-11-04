@@ -14,7 +14,6 @@ function Home() {
                 <Link
                     to="https://github.com/rohit1kumar/shareclaude"
                     target="_blank"
-                    rel="noopener noreferrer"
                     className="w-full sm:w-auto px-4 py-2 bg-shareClaude-userChat text-white rounded-lg hover:bg-shareClaude-accent/80">
                     Download Extension
                 </Link>
@@ -26,7 +25,7 @@ function Home() {
             </div>
             <div className="aspect-video overflow-hidden rounded-xl border border-gray-600 shadow-lg shadow-shareClaude-accent/50 hover:shadow-shareClaude-accent/80 transition-all duration-300">
                 <LiteYouTubeEmbed
-                    id="o4eX5qnD_Ak"
+                    id="h65fYJhn22Y"
                     thumbnail={thumbnail}
                     title="ShareClaude - Chrome Extension for Sharing Claude Conversations"
                 />
