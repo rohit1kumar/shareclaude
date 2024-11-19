@@ -3,13 +3,9 @@
     "name": "ShareClaude",
     "description": "Share your Claude chats with one click",
     "version": "0.1.0",
-    "permissions": [
-        "activeTab",
-        "scripting"
-    ],
+    "permissions": [],
     "host_permissions": [
-        "https://claude.ai/*",
-        "https://api.claude.ai/*"
+        "https://claude.ai/chat/*"
     ],
     "icons": {
         "128": "images/icon-128.png"
