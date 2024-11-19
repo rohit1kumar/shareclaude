@@ -30,6 +30,10 @@ function Home() {
                     title="ShareClaude - Chrome Extension for Sharing Claude Conversations"
                 />
             </div>
+
+            <Link to="/privacy-policy" className="block mt-8 text-xs text-shareClaude-accent hover:underline">
+                Privacy Policy
+            </Link>
         </div>
     )
 }
