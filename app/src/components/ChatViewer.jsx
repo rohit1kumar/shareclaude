@@ -19,7 +19,7 @@ function ChatViewer() {
                 document.title = data?.title ?? 'Chats - ShareClaude';
                 setChatData(data);
             } catch (err) {
-                setError(err.message);
+                setError(err instanceof Error ? err.message : 'An error occurred');
             } finally {
                 setLoading(false);
             }
@@ -30,6 +30,7 @@ function ChatViewer() {
 
     if (loading) return <p className="text-center text-gray-400">Loading...</p>;
     if (error) return <p className="text-center text-red-600">Error: {error}</p>;
+    if (!chatData) return null;
 
     return (
         <div className="w-full max-w-2xl mx-auto p-4 bg-shareClaude-background rounded-lg">
