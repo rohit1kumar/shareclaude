@@ -1,7 +1,7 @@
 # [ShareClaude](https://shareclaude.pages.dev)
 
 ## Chrome Extension to share your [Claude](https://claude.ai) chats with one click
-
+## Download from [Chrome Webstore](https://chromewebstore.google.com/detail/pcpjdbnjhgofgjgegodlnebdnmiddmaa)
 ### How to use
 
 1. Download or clone this repository
