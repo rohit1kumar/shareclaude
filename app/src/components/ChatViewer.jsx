@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import ChatMessage from './ChatMessage'
+import ChatMessage from './ChatMessage';
 import { useParams } from 'react-router-dom';
 
 function ChatViewer() {
