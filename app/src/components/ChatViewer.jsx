@@ -10,8 +10,8 @@ function ChatViewer() {
     useEffect(() => {
         const fetchChatData = async () => {
             try {
-                const apiUrl = "https://shareclaude.pages.dev";
-                const response = await fetch(`${apiUrl}/api/chats/${chatId}`);
+                const apiURL = "https://shareclaude.pages.dev/api/chats";
+                const response = await fetch(`${apiURL}/${chatId}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -39,7 +39,7 @@ function ChatViewer() {
                 <div className="rounded-2xl shadow-lg border border-gray-700 overflow-hidden">
                     <div className="p-6 border-b border-gray-700">
                         <h2 className="text-xl font-semibold text-gray-200 text-center">
-                        {chatData?.title}
+                            {chatData?.title}
                         </h2>
                     </div>
                     <div className="p-6">
