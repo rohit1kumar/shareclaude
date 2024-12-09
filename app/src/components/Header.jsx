@@ -15,7 +15,8 @@ function Header() {
                     className="flex items-center space-x-2 text-gray-400 hover:text-gray-200 transition-colors"
                 >
                     <Github className="h-5 w-5" />
-                    <span>Support Us – Star It</span>
+                    <span className="hidden sm:inline">Support Us –</span>
+                    <span className="sm:ml-1">Star It</span>
                 </a>
             </nav>
         </header>
