@@ -15,7 +15,7 @@ function Header() {
                     className="flex items-center space-x-2 text-gray-400 hover:text-gray-200 transition-colors"
                 >
                     <Github className="h-5 w-5" />
-                    <span>GitHub</span>
+                    <span>Support Us – Star It</span>
                 </a>
             </nav>
         </header>

@@ -11,7 +11,7 @@ const Footer = lazy(() => import('./components/Footer'));
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-shareClaude-background flex flex-col">
+      <div className="min-h-screen bg-shareClaude-background flex flex-col overflow-x-hidden">
         <Header />
         <main className="flex-grow">
           <Suspense fallback={

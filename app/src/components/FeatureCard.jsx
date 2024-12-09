@@ -24,7 +24,8 @@ function FeatureCard() {
                             <Github className="h-6 w-6 text-shareClaude-accent" />
                         </div>
                         <h3 className="text-xl font-semibold mb-2">Open Source</h3>
-                        <p className="text-gray-400">Fully open-source and community-driven. Contribute and help make sharing even better.</p>
+                        <p className="text-gray-400">Fully Open-source, contribute to improve sharing. Now compatible with Microsoft Edge!
+                        </p>
                     </div>
                 </div>
             </div>
