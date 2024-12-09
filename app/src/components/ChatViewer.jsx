@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ChatMessage from './ChatMessage'
 import { useParams } from 'react-router-dom';
 
 function ChatViewer() {
     const [chatData, setChatData] = useState(null);
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const { chatId } = useParams();
 
     useEffect(() => {
         const fetchChatData = async () => {
             try {
-                const response = await fetch(`/api/chats/${chatId}`);
+                const apiUrl = "https://shareclaude.pages.dev";
+                const response = await fetch(`${apiUrl}/api/chats/${chatId}`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -20,26 +20,43 @@ function ChatViewer() {
                 setChatData(data);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'An error occurred');
-            } finally {
-                setLoading(false);
             }
         };
 
         fetchChatData();
     }, [chatId]);
 
-    if (loading) return <p className="text-center text-gray-400">Loading...</p>;
-    if (error) return <p className="text-center text-red-600">Error: {error}</p>;
-    if (!chatData) return null;
+    if (error) return (
+        <div className="min-h-[calc(100vh-8rem)] flex flex-col items-center justify-center text-red-600">
+            Error: {error}
+        </div>
+    );
+
 
     return (
-        <div className="w-full max-w-2xl mx-auto p-4 bg-shareClaude-background rounded-lg">
-            <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-gray-200">{chatData?.title}</h2>
-            <div className="space-y-4">
-                {chatData?.content.map((chat, index) => (
-                    <ChatMessage key={index} chat={chat} />
-                ))}
-            </div>
+        <div className="min-h-screen flex flex-col">
+            <main className="flex-grow w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div className="rounded-2xl shadow-lg border border-gray-700 overflow-hidden">
+                    <div className="p-6 border-b border-gray-700">
+                        <h2 className="text-xl font-semibold text-gray-200 text-center">
+                        {chatData?.title}
+                        </h2>
+                    </div>
+                    <div className="p-6">
+                        <div className="space-y-6">
+                            {chatData ? (
+                                chatData.content.map((chat, index) => (
+                                    <ChatMessage key={index} chat={chat} />
+                                ))
+                            ) : (
+                                <div className="flex justify-center py-8">
+                                    <div className="w-10 h-10 border-4 border-shareClaude-accent border-t-transparent rounded-full animate-spin"></div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
     );
 }

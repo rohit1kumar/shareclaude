@@ -1,14 +1,11 @@
-import { Chrome, ArrowRight } from 'lucide-react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import { Chrome, Link2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import FeatureCard from '../components/FeatureCard';
 import DemoChat from '../components/DemoChat';
 
 function Home() {
     return (
-        <div className="min-h-screen bg-shareClaude-background text-gray-200">
-            <Header />
-
+        <div className="min-h-screen text-gray-200">
             <main>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
                     <div className="text-center">
@@ -21,27 +18,22 @@ function Home() {
                             Instantly share your Claude.AI conversations with anyone. A simple Chrome extension
                             that makes collaboration effortless.
                         </p>
-
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                             <a
                                 href="https://chromewebstore.google.com/detail/pcpjdbnjhgofgjgegodlnebdnmiddmaa"
                                 target="_blank"
-                                // rel="noopener noreferrer"
-                                className="inline-flex items-center px-6 py-3 rounded-lg bg-shareClaude-accent text-white hover:bg-shareClaude-accent/80 transition-colors"
+                                className="inline-flex items-center px-6 py-3 rounded-lg bg-shareClaude-accent text-white text-lg font-semibold hover:bg-shareClaude-accent/80 transition-colors"
                             >
-                                <Chrome className="h-5 w-5 mr-2" />
+                                <Chrome className="h-6 w-6 mr-2" />
                                 Add to Chrome
-                                <ArrowRight className="h-4 w-4 ml-2" />
                             </a>
-                            <button
-                                onClick={() => {
-                                    const demoSection = document.getElementById('demo');
-                                    demoSection?.scrollIntoView({ behavior: 'smooth' });
-                                }}
-                                className="inline-flex items-center px-6 py-3 rounded-lg border-2 border-shareClaude-accent text-shareClaude-accent hover:bg-shareClaude-accent hover:text-white transition-colors"
+                            <Link
+                                to="/c/rhxw367ndulkfr24a5hssm5u"
+                                className="inline-flex items-center px-6 py-3 rounded-lg border-2 border-shareClaude-accent text-shareClaude-accent text-lg font-semibold hover:bg-shareClaude-accent hover:text-white transition-colors"
                             >
-                                View Sample Chat
-                            </button>
+                                <Link2 className="h-6 w-6 mr-2" />
+                                Get Share Link
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -49,8 +41,6 @@ function Home() {
                 <FeatureCard />
                 <DemoChat />
             </main>
-
-            <Footer />
         </div>
     );
 }

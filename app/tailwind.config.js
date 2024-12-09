@@ -9,10 +9,11 @@ export default {
       colors: {
         'shareClaude': {
           background: '#2C2B28',
-          userChat: '#201F1B',
-          claudeChat: '#383735',
+          userChat: '#21201C',
+          claudeChat: '#333330',
           codeBox: '#21201C',
-          accent: '#A3512B',
+          accent: '#D97757',
+          backgroundLight: '#393937',
         },
       },
     },
