@@ -1,7 +1,10 @@
-import { memo } from 'react';
-import Markdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { memo } from 'react'
+import Markdown from 'react-markdown'
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
+import dracula from 'react-syntax-highlighter/dist/esm/styles/prism/dracula'
+import javascript from 'react-syntax-highlighter/dist/esm/languages/prism/javascript'
+
+SyntaxHighlighter.registerLanguage('javascript', javascript)
 
 const ChatMessageAvatar = memo(({ isUser }) => (
     <div
@@ -10,32 +13,6 @@ const ChatMessageAvatar = memo(({ isUser }) => (
         {isUser ? 'U' : 'C'}
     </div>
 ));
-
-const CodeRenderer = {
-    code({ inline, className, children, ...props }) {
-        if (inline) {
-            return (
-                <code
-                    className="bg-shareClaude-codeBox rounded px-1 py-0.5 text-sm text-gray-200"
-                    {...props}
-                >
-                    {children}
-                </code>
-            );
-        }
-
-        return (
-            <SyntaxHighlighter
-                language="javascript"
-                style={dracula}
-                className="rounded-md text-sm overflow-x-auto bg-shareClaude-codeBox"
-                {...props}
-            >
-                {String(children).trim()}
-            </SyntaxHighlighter>
-        );
-    }
-};
 
 function ChatMessage({ chat }) {
     const isUser = chat.source === 'user';
@@ -48,7 +25,29 @@ function ChatMessage({ chat }) {
             >
                 <Markdown
                     className="prose prose-sm max-w-none text-gray-200 break-words"
-                    components={CodeRenderer}
+                    components={{
+                        code({ className, children, ...props }) {
+                            const match = /language-(\w+)/.exec(className || '')
+                            return match ? (
+                                <SyntaxHighlighter
+                                    language={"javascript"}
+                                    style={dracula}
+                                    className="rounded-md text-sm overflow-x-auto bg-shareClaude-codeBox"
+                                    {...props}
+                                >
+                                    {String(children).trim()}
+                                </SyntaxHighlighter>
+                            )
+                                : (
+                                    <code
+                                        className="bg-shareClaude-codeBox rounded px-1 py-0.5 text-sm text-gray-200"
+                                        {...props}
+                                    >
+                                        {children}
+                                    </code>
+                                );
+                        }
+                    }}
                 >
                     {chat.message}
                 </Markdown>
