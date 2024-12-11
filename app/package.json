@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@paralleldrive/cuid2": "^2.2.2",
+    "classnames": "^2.5.1",
     "drizzle-orm": "^0.33.0",
     "lucide-react": "^0.460.0",
     "react": "^18.3.1",
