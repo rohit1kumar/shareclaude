@@ -1,8 +1,13 @@
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
-import javascript from 'react-syntax-highlighter/dist/esm/languages/prism/javascript'
+import { typescript, javascript, python, json, bash } from 'react-syntax-highlighter/dist/esm/languages/prism'
 import dracula from 'react-syntax-highlighter/dist/esm/styles/prism/dracula'
 import classNames from 'classnames';
+
 SyntaxHighlighter.registerLanguage('javascript', javascript)
+SyntaxHighlighter.registerLanguage('typescript', typescript)
+SyntaxHighlighter.registerLanguage('python', python)
+SyntaxHighlighter.registerLanguage('json', json)
+SyntaxHighlighter.registerLanguage('bash', bash)
 
 const CodeBlock = ({ node, inline, className, children, isHuman, ...props }) => {
     const match = /language-(\w+)/.exec(className || '');
