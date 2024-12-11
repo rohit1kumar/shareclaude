@@ -102,17 +102,19 @@ async function getShareURL(messages) {
 
 function addShareButton() {
     const button = document.createElement('button')
-    button.textContent = '🔗'
-    button.style.position = 'fixed'
-    button.style.bottom = '20px'
-    button.style.right = '20px'
-    button.style.padding = '10px 20px'
-    button.style.backgroundColor = '#d97757'
-    button.style.color = '#fff'
-    button.style.border = 'none'
-    button.style.borderRadius = '5px'
-    button.style.cursor = 'pointer'
-    button.style.zIndex = '1000'
+    button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256">
+        <path d="M176 160a39.7 39.7 0 0 0-28.6 12.1l-46.1-29.6a40.3 40.3 0 0 0 0-29l46.1-29.6A40 40 0 1 0 136 56a41 41 0 0 0 .3 4.8l-46.1 29.6a40 40 0 1 0 0 75.2l46.1 29.6a41 41 0 0 0-.3 4.8 40 40 0 1 0 40-40Zm0-112a24 24 0 1 1-24 24 24 24 0 0 1 24-24ZM64 152a24 24 0 1 1 24-24 24 24 0 0 1-24 24Zm112 72a24 24 0 1 1 24-24 24 24 0 0 1-24 24Z"/>
+    </svg>`
+
+    button.className = 'inline-flex items-center justify-center relative shrink-0 ring-offset-2 ring-offset-bg-300 ring-accent-main-100 focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none disabled:drop-shadow-none text-text-200 border-transparent transition-colors font-styrene active:bg-bg-400 hover:bg-bg-500/40 hover:text-text-100 h-8 w-8 rounded-md active:scale-95 !rounded-lg'
+    button.type = 'button'
+    button.ariaLabel = 'Share conversation'
+    button.style.cssText = `
+        margin-left: 8px;
+        color: white;
+        background: transparent;
+        border: none;
+    `
 
     button.addEventListener('click', async () => {
         const conversationData = await getClaudeConversationData()
@@ -128,15 +130,22 @@ function addShareButton() {
         }
 
         navigator.clipboard.writeText(shareURL)
-        const originalText = button.textContent
-        button.textContent = '📋'
-        setTimeout(() => {
-            button.textContent = originalText
-            window.open(shareURL, '_blank')
-        }, 1000)
+        window.open(shareURL, '_blank')
     })
 
-    document.body.appendChild(button)
+    // Find the upload button container and insert our share button after it
+    const observer = new MutationObserver((mutations, obs) => {
+        const uploadButton = document.querySelector('button[aria-label="Upload content"]')
+        if (uploadButton) {
+            uploadButton.parentElement.appendChild(button)
+            obs.disconnect()
+        }
+    })
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    })
 }
 
 window.addEventListener('load', async () => {
