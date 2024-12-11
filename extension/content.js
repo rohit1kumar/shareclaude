@@ -2,6 +2,8 @@ const PAGE_URL = 'https://shareclaude.pages.dev'
 const CLAUDE_API_URL = 'https://claude.ai/api/organizations'
 let organizationId = ''
 
+const shareIconSVG =`<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share-2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>`
+
 async function getOrganizationId() {
     try {
         const response = await fetch(CLAUDE_API_URL, {
@@ -102,19 +104,12 @@ async function getShareURL(messages) {
 
 function addShareButton() {
     const button = document.createElement('button')
-    button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 256 256">
-        <path d="M176 160a39.7 39.7 0 0 0-28.6 12.1l-46.1-29.6a40.3 40.3 0 0 0 0-29l46.1-29.6A40 40 0 1 0 136 56a41 41 0 0 0 .3 4.8l-46.1 29.6a40 40 0 1 0 0 75.2l46.1 29.6a41 41 0 0 0-.3 4.8 40 40 0 1 0 40-40Zm0-112a24 24 0 1 1-24 24 24 24 0 0 1 24-24ZM64 152a24 24 0 1 1 24-24 24 24 0 0 1-24 24Zm112 72a24 24 0 1 1 24-24 24 24 0 0 1-24 24Z"/>
-    </svg>`
+    button.innerHTML = shareIconSVG
 
     button.className = 'inline-flex items-center justify-center relative shrink-0 ring-offset-2 ring-offset-bg-300 ring-accent-main-100 focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none disabled:drop-shadow-none text-text-200 border-transparent transition-colors font-styrene active:bg-bg-400 hover:bg-bg-500/40 hover:text-text-100 h-8 w-8 rounded-md active:scale-95 !rounded-lg'
     button.type = 'button'
+    button.title = 'Share conversation'
     button.ariaLabel = 'Share conversation'
-    button.style.cssText = `
-        margin-left: 8px;
-        color: white;
-        background: transparent;
-        border: none;
-    `
 
     button.addEventListener('click', async () => {
         const conversationData = await getClaudeConversationData()
