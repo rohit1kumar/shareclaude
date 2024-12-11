@@ -1,111 +1,145 @@
-const API_URL = 'https://shareclaude.pages.dev/api/chats';
-const PAGE_URL = 'https://shareclaude.pages.dev/c'
+const PAGE_URL = 'https://shareclaude.pages.dev'
+const CLAUDE_API_URL = 'https://claude.ai/api/organizations'
+let organizationId = ''
 
-function getUUID() {
-    const match = window.location.href.match(/\/chat\/([^\/]+)/);
-    return match ? match[1] : null;
+async function getOrganizationId() {
+    try {
+        const response = await fetch(CLAUDE_API_URL, {
+            credentials: 'include',
+            headers: {
+                'accept': 'application/json',
+                'content-type': 'application/json',
+            }
+        })
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch organizations')
+        }
+
+        const data = await response.json()
+        if (data?.length > 0) {
+            return data[0].uuid
+        }
+
+        throw new Error('No organization found')
+    } catch (error) {
+        console.error('Failed to get organization:', error)
+        return null
+    }
 }
 
-function extractMessageContent(element) {
-    let content = '';
-    element.querySelectorAll('p, pre').forEach((el) => {
-        if (el.tagName === 'PRE') {
-            const codeBlock = el.querySelector('code');
-            if (codeBlock) {
-                const language = codeBlock.className.replace('language-', '');
-                content += `\`\`\`${language}\n${codeBlock.textContent}\n\`\`\`\n\n`;
-            } else {
-                content += `\`\`\`\n${el.textContent}\n\`\`\`\n\n`;
-            }
-        } else {
-            content += `${el.textContent.trim()}\n\n`;
-        }
-    });
-    return content.trim();
+function getClaudechatId() {
+    const match = window.location.href.match(/\/chat\/([^\/]+)/)
+    return match?.[1] || null
 }
 
-function getUserAndClaudeMessages() {
-    const messages = [];
-    const chatTitle = document.querySelector('.font-tiempos.truncate.font-normal.tracking-tight')?.textContent.trim();
-
-    const userMessages = Array.from(document.getElementsByClassName('font-user-message'));
-    const claudeMessages = Array.from(document.getElementsByClassName('font-claude-message'));
-
-    let i = 0;
-    while (i < userMessages.length || i < claudeMessages.length) {
-        if (i < userMessages.length) {
-            const userMsg = extractMessageContent(userMessages[i]);
-            if (userMsg) {
-                messages.push({ source: 'user', message: userMsg });
-            }
+async function getClaudeConversationData() {
+    if (!organizationId) {
+        organizationId = await getOrganizationId()
+        if (!organizationId) {
+            return null
         }
-        if (i < claudeMessages.length) {
-            const claudeMsg = extractMessageContent(claudeMessages[i]);
-            if (claudeMsg) {
-                messages.push({ source: 'claude', message: claudeMsg });
-            }
-        }
-        i++;
     }
 
-    const chatUUID = getUUID();
-    return {
-        title: chatTitle,
-        content: messages,
-        uuid: chatUUID,
-    };
+    const claudeConversationId = getClaudechatId()
+    if (!claudeConversationId) {
+        return null
+    }
+
+    try {
+        const response = await fetch(
+            `${CLAUDE_API_URL}/${organizationId}/chat_conversations/${claudeConversationId}?tree=True&rendering_mode=messages&render_all_tools=true`,
+            {
+                headers: {
+                    'accept': '*/*',
+                    'content-type': 'application/json',
+                },
+                credentials: 'include'
+            }
+        )
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`)
+        }
+
+        const data = await response.json()
+        const messages = data.chat_messages.map(msg => ({
+            source: msg.sender === 'human' ? 'user' : 'claude',
+            message: msg.content[0].text
+        }))
+
+        return {
+            title: data.name,
+            content: messages,
+        }
+    } catch (error) {
+        console.error('Error fetching conversation:', error)
+        return null
+    }
 }
 
 async function getShareURL(messages) {
-
     try {
-        const response = await fetch(API_URL, {
+        const response = await fetch(`${PAGE_URL}/api/chats`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(messages),
-        });
+        })
+
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            throw new Error(`HTTP error! Status: ${response.status}`)
         }
-        const { id } = await response.json();
-        return `${PAGE_URL}/${id}`;
-    } catch (err) {
-        console.error(err);
-        return null;
+
+        const { id } = await response.json()
+        return `${PAGE_URL}/c/${id}`
+    } catch (error) {
+        console.error('Error getting share URL:', error)
+        return null
     }
 }
 
 function addShareButton() {
-    const button = document.createElement('button');
-    button.textContent = '🔗';
-    button.style.position = 'fixed';
-    button.style.bottom = '20px';
-    button.style.right = '20px';
-    button.style.padding = '10px 20px';
-    button.style.backgroundColor = '#d97757';
-    button.style.color = '#fff';
-    button.style.border = 'none';
-    button.style.borderRadius = '5px';
-    button.style.cursor = 'pointer';
-    button.style.zIndex = '1000';
+    const button = document.createElement('button')
+    button.textContent = '🔗'
+    button.style.position = 'fixed'
+    button.style.bottom = '20px'
+    button.style.right = '20px'
+    button.style.padding = '10px 20px'
+    button.style.backgroundColor = '#d97757'
+    button.style.color = '#fff'
+    button.style.border = 'none'
+    button.style.borderRadius = '5px'
+    button.style.cursor = 'pointer'
+    button.style.zIndex = '1000'
 
     button.addEventListener('click', async () => {
-        const msgs = getUserAndClaudeMessages();
-        const shareURL = await getShareURL(msgs);
-        if (shareURL) {
-            navigator.clipboard.writeText(shareURL);
-            button.textContent = '📋';
-            button.style.backgroundColor = '#4CAF50';
-            window.open(shareURL, '_blank');
-        } else {
-            button.textContent = '❌';
-            button.style.backgroundColor = '#f44336';
+        const conversationData = await getClaudeConversationData()
+        if (!conversationData) {
+            alert('Failed to get conversation data')
+            return
         }
-    });
 
-    document.body.appendChild(button);
+        const shareURL = await getShareURL(conversationData)
+        if (!shareURL) {
+            alert('Failed to generate share URL')
+            return
+        }
+
+        navigator.clipboard.writeText(shareURL)
+        const originalText = button.textContent
+        button.textContent = '📋'
+        setTimeout(() => {
+            button.textContent = originalText
+            window.open(shareURL, '_blank')
+        }, 1000)
+    })
+
+    document.body.appendChild(button)
 }
 
-window.addEventListener('load', () => addShareButton());
+window.addEventListener('load', async () => {
+    organizationId = await getOrganizationId()
+    addShareButton()
+})
