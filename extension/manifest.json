@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "permissions": [],
     "host_permissions": [
-        "https://claude.ai/chat/*"
+        "https://claude.ai/*"
     ],
     "icons": {
         "128": "images/icon-128.png"
@@ -13,7 +13,7 @@
     "content_scripts": [
         {
             "matches": [
-                "https://claude.ai/chat/*"
+                "https://claude.ai/*"
             ],
             "js": [
                 "content.js"
