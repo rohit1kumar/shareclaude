@@ -1,45 +1,33 @@
-import React from 'react'
-import Markdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { memo } from 'react'
+import MarkdownRenderer from './MarkdownRenderer';
 
-function ChatMessage({ index, chat }) {
-    const isUser = chat.source === 'user'
 
+const ChatMessageAvatar = memo(({ isUser }) => (
+    <div
+        className={`h-8 w-8 rounded-full flex items-center justify-center text-white font-semibold ${isUser ? 'bg-gray-700' : 'bg-shareClaude-accent'}`}
+    >
+        {isUser ? 'U' : 'C'}
+    </div>
+));
+
+function ChatMessage({ chat }) {
+    const isUser = chat.source === 'user';
+    // FIXME: make user message responsive when large text is present
     return (
-        <div
-            key={index}
-            className={`p-3 sm:p-4 rounded-lg ${isUser ? 'bg-shareClaude-userChat' : 'bg-shareClaude-claudeChat'}`}
-        >
-            <strong className="block text-shareClaude-accent mb-2">
-                {isUser ? 'User:' : 'Claude:'}
-            </strong>
-
-            <Markdown
-                className="prose prose-sm max-w-none text-gray-200 break-words"
-                components={{
-                    code({ node, inline, className, children, ...props }) {
-                        return !inline ? (
-                            <SyntaxHighlighter
-                                language="javascript"
-                                style={dracula}
-                                className="rounded-md text-sm overflow-x-auto bg-shareClaude-codeBox"
-                                {...props}
-                            >
-                                {String(children).replace(/\n$/, '')}
-                            </SyntaxHighlighter>
-                        ) : (
-                            <code className="bg-shareClaude-codeBox rounded px-1 py-0.5 text-sm" {...props}>
-                                {children}
-                            </code>
-                        );
-                    },
-                }}
+        <div className={`flex items-start ${isUser ? 'flex-row-reverse' : ''}`}>
+            <ChatMessageAvatar isUser={isUser} />
+            <div
+                className={`mx-4 rounded-lg p-4 max-w-[70%] ${isUser ? 'bg-shareClaude-userChat' : 'bg-shareClaude-claudeChat'}`}
             >
-                {chat.message}
-            </Markdown>
-        </div>
-    )
+                <MarkdownRenderer
+                    className="prose prose-sm max-w-none text-gray-200 break-words"
+                    // key={index}
+                    content={chat.message}
+                    isHuman={isUser}
+                />
+            </div>
+        </div >
+    );
 }
 
-export default ChatMessage
+export default memo(ChatMessage);
