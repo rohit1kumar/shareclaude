@@ -1,17 +1,62 @@
 # [ShareClaude](https://shareclaude.pages.dev)
 
-## Chrome Extension to share your [Claude](https://claude.ai) chats with one click
-## Download from [Chrome Webstore](https://chromewebstore.google.com/detail/pcpjdbnjhgofgjgegodlnebdnmiddmaa)
-### How to use
+<div align="center">
 
-1. Download or clone this repository
-2. go to `chrome://extensions/` in your browser, enable developer mode and click on `Load unpacked`
-3. Select the `extension` folder from the downloaded repository
-4. Open the Claude chat you want to share and click on the 🔗 icon on the bottom right corner
-5. URL will be copied to your clipboard, you can now share it with anyone
+Chrome Extension to share your [Claude](https://claude.ai) conversations with one click.
 
-**Known Issue(s):** icon doesn't show on the first load, need to refresh the page
 
-### Tech Stack
+[![Visit ShareClaude](https://img.shields.io/badge/Visit-ShareClaude-blue.svg?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNEOTc3NTciIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1zaGFyZS0yIj48Y2lyY2xlIGN4PSIxOCIgY3k9IjUiIHI9IjMiLz48Y2lyY2xlIGN4PSI2IiBjeT0iMTIiIHI9IjMiLz48Y2lyY2xlIGN4PSIxOCIgY3k9IjE5IiByPSIzIi8+PGxpbmUgeDE9IjguNTkiIHgyPSIxNS40MiIgeTE9IjEzLjUxIiB5Mj0iMTcuNDkiLz48bGluZSB4MT0iMTUuNDEiIHgyPSI4LjU5IiB5MT0iNi41MSIgeTI9IjEwLjQ5Ii8+PC9zdmc+)](https://shareclaude.pages.dev)
+[![Platform Chrome](https://img.shields.io/badge/Platform-Chrome-yellow?logo=google-chrome&logoColor=yellow)](https://chrome.google.com/webstore/detail/shareclaude/hngfnlgdbhjmejfndkhnnkjbblfhoija)
 
-React, TailwindCSS, Cloudfare functions & D1
+
+
+</div>
+
+## Features
+
+- One-click sharing of Claude AI conversations
+- Instant URL generation
+- Support syntax highlighting for code
+- Works directly with Claude's web interface
+
+## Installation
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/rohit1kumar/shareclaude.git
+   ```
+2. Open Chrome and navigate to `chrome://extensions/`
+3. Enable "Developer mode" in the top right corner
+4. Click "Load unpacked" and select the `extension` folder from the cloned repository
+
+## How to Use
+
+1. Open [Claude](https://claude.ai) in your browser
+2. Start or continue a conversation with Claude
+3. Click the <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXNoYXJlLTIiPjxjaXJjbGUgY3g9IjE4IiBjeT0iNSIgcj0iMyIvPjxjaXJjbGUgY3g9IjYiIGN5PSIxMiIgcj0iMyIvPjxjaXJjbGUgY3g9IjE4IiBjeT0iMTkiIHI9IjMiLz48bGluZSB4MT0iOC41OSIgeDI9IjE1LjQyIiB5MT0iMTMuNTEiIHkyPSIxNy40OSIvPjxsaW5lIHgxPSIxNS40MSIgeDI9IjguNTkiIHkxPSI2LjUxIiB5Mj0iMTAuNDkiLz48L3N2Zz4=" alt="Share icon" width="15" height="15" style="background-color:white"> share icon in the input box adjacent to the attachments button.
+4. The sharing URL will be automatically copied to your clipboard
+5. Share the URL with anyone you want!
+
+## Tech Stack
+
+- **Frontend**: React, TailwindCSS
+- **Backend**: Cloudflare Workers
+- **Database**: Cloudflare D1
+
+## Known Issues
+
+- Extension icon may not appear on the first load. Refreshing the page resolves this issue.
+
+## Contributing
+
+Contributions are welcome! Feel free to:
+- Report bugs
+- Suggest new features
+- Submit pull requests
+
+## Links
+
+- [Website](https://shareclaude.pages.dev)
+
+---
+Made with ☕ for the Claude community
