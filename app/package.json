@@ -18,12 +18,14 @@
     "classnames": "^2.5.1",
     "drizzle-orm": "^0.33.0",
     "lucide-react": "^0.460.0",
+    "mermaid": "^11.4.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-lite-youtube-embed": "^2.4.0",
     "react-markdown": "^9.0.1",
     "react-router-dom": "^6.26.1",
-    "react-syntax-highlighter": "^15.5.0"
+    "react-syntax-highlighter": "^15.5.0",
+    "remark-gfm": "^4.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
