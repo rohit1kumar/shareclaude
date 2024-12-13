@@ -50,9 +50,9 @@ const MarkdownRenderer = ({ content, isHuman }) => {
                             {artifact.title}
                         </div>
                         <div className="bg-gray-900 p-4">
-                            <div className="mermaid">
+                            <pre className="mermaid">
                                 {artifact.content}
-                            </div>
+                            </pre>
                         </div>
                     </div>
                 );
@@ -119,8 +119,9 @@ const MarkdownRenderer = ({ content, isHuman }) => {
         }
     };
 
-    const renderMarkdown = (content) => (
+    const renderMarkdown = (content, index) => (
         <ReactMarkdown
+            key={index}
             remarkPlugins={[remarkGfm]}
             className="prose prose-invert prose-sm max-w-none"
             components={{
@@ -208,7 +209,7 @@ const MarkdownRenderer = ({ content, isHuman }) => {
                     const artifact = parseAntArtifact(part);
                     return artifact ? renderArtifact(artifact, index) : null;
                 }
-                return renderMarkdown(part);
+                return renderMarkdown(part, index);
             })}
         </>
     );
