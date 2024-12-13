@@ -15,7 +15,7 @@ Chrome Extension to share your [Claude](https://claude.ai) conversations with on
 
 - One-click sharing of Claude AI conversations
 - Instant URL generation
-- Support syntax highlighting for code
+- Support syntax highlighting for code and Artifacts including Mermaid & JSON
 - Works directly with Claude's web interface
 
 ## Installation
@@ -32,7 +32,7 @@ Chrome Extension to share your [Claude](https://claude.ai) conversations with on
 
 1. Open [Claude](https://claude.ai) in your browser
 2. Start or continue a conversation with Claude
-3. Click the ![share_button](https://github.com/user-attachments/assets/07c61693-f109-4ed2-8cf6-8f38cfab4277) share icon in the input box adjacent to the attachments button.
+3. Click the ![share_button](https://github.com/user-attachments/assets/08baed07-07be-496d-aa40-c232e6022204) share icon in the input box adjacent to the attachments button.
 4. The sharing URL will be automatically copied to your clipboard
 5. Share the URL with anyone you want!
 
