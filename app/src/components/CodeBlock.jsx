@@ -1,5 +1,5 @@
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { typescript, javascript, python, json, bash } from 'react-syntax-highlighter/dist/esm/languages/prism'
+import { typescript, javascript, python, json, bash, jsx, markup as html } from 'react-syntax-highlighter/dist/esm/languages/prism'
 import dracula from 'react-syntax-highlighter/dist/esm/styles/prism/dracula'
 import classNames from 'classnames';
 
@@ -8,16 +8,18 @@ SyntaxHighlighter.registerLanguage('typescript', typescript)
 SyntaxHighlighter.registerLanguage('python', python)
 SyntaxHighlighter.registerLanguage('json', json)
 SyntaxHighlighter.registerLanguage('bash', bash)
+SyntaxHighlighter.registerLanguage('jsx', jsx)
+SyntaxHighlighter.registerLanguage('html', html)
 
-const CodeBlock = ({ node, inline, className, children, isHuman, ...props }) => {
+const CodeBlock = ({ node, inline, className, children, isHuman, title, ...props }) => {
     const match = /language-(\w+)/.exec(className || '');
 
     if (!inline && match) {
-        const language = match ? match[1].toLowerCase() : 'javascript';
+        const language = match ? match[1].toLowerCase() : 'text';
         return (
             <div className="my-4 rounded-lg overflow-hidden">
                 <div className="bg-gray-800 px-4 py-2 text-xs text-gray-200">
-                    {language}
+                    <span>{title || language}</span>
                 </div>
                 <SyntaxHighlighter
                     style={dracula}
@@ -35,7 +37,7 @@ const CodeBlock = ({ node, inline, className, children, isHuman, ...props }) => 
             </div>
         );
     }
-
+    // if no language is specified, use text
     return (
         <code
             className={classNames(
