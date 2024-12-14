@@ -42,7 +42,7 @@ function Home() {
                 <div className="max-w-4xl mx-auto my-8 sm:my-12 px-4 sm:px-8">
                     <div className="aspect-video overflow-hidden rounded-xl border border-gray-600 shadow-lg shadow-shareClaude-accent/50 hover:shadow-shareClaude-accent/80 transition-all duration-300">
                         <LiteYouTubeEmbed
-                            id="ZXOdIlPfrNQ"
+                            id="fhiBt878T34"
                             thumbnail={thumbnail}
                             title="ShareClaude - Chrome Extension for Sharing Claude Conversations"
                         />
