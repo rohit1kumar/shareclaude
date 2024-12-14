@@ -57,10 +57,27 @@ async function getConversationMessages({ organizationId, conversationId }) {
 		}
 
 		const data = await response.json()
-		const messages = data.chat_messages.map((msg) => ({
-			source: msg.sender === 'human' ? 'user' : 'claude',
-			message: msg.content[0].text
-		}))
+		const messages = data.chat_messages.map((msg) => {
+			const { sender, content, attachments } = msg
+			let message = content[0].text
+
+			if (sender === 'human' && attachments.length > 0) {
+				for (const attachment of attachments) {
+					const { file_type, file_name, extracted_content } = attachment
+					const fileType = file_type?.split('/')[1] || file_type
+					if (fileType) {
+						message += `\n\n${file_name}:\n\n\`\`\`${fileType}\n${extracted_content}\n\`\`\``
+					} else {
+						message += `\n\n${file_name}:\n\n${extracted_content}`
+					}
+				}
+			}
+
+			return {
+				source: sender === 'human' ? 'user' : 'claude',
+				message
+			}
+		})
 
 		return {
 			title: data.name,
