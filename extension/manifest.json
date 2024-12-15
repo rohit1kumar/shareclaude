@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "ShareClaude",
     "description": "Share your Claude chats with one click, works Google Chrome & Edge, with syntax highlighting and smooth integration with Claude UI",
-    "version": "0.2.1",
+    "version": "0.3.1",
     "permissions": [],
     "host_permissions": [
         "https://claude.ai/*"
