@@ -25,6 +25,7 @@ const CodeBlock = ({ node, inline, className, children, isHuman, title, ...props
                     style={dracula}
                     language={language}
                     PreTag="div"
+                    showLineNumbers={true}
                     customStyle={{
                         margin: 0,
                         borderTopLeftRadius: 0,

@@ -12,21 +12,21 @@ const ChatMessageAvatar = memo(({ isUser }) => (
 
 function ChatMessage({ chat }) {
     const isUser = chat.source === 'user';
-    // FIXME: make user message responsive when large text is present
+
     return (
-        <div className={`flex items-start ${isUser ? 'flex-row-reverse' : ''}`}>
+        <div className={`flex items-start ${isUser ? 'flex-row-reverse' : ''} break-words whitespace-pre-wrap`}>
             <ChatMessageAvatar isUser={isUser} />
             <div
-                className={`mx-4 rounded-lg p-4 max-w-[70%] ${isUser ? 'bg-shareClaude-userChat' : 'bg-shareClaude-claudeChat'}`}
+                className={`mx-4 rounded-lg p-4 max-w-[70%] overflow-hidden ${isUser ? 'bg-shareClaude-userChat' : 'bg-shareClaude-claudeChat'
+                    }`}
             >
                 <MarkdownRenderer
-                    className="prose prose-sm max-w-none text-gray-200 break-words"
-                    // key={index}
+                    className="prose prose-sm max-w-none text-gray-200"
                     content={chat.message}
                     isHuman={isUser}
                 />
             </div>
-        </div >
+        </div>
     );
 }
 
