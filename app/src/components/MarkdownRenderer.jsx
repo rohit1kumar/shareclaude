@@ -126,8 +126,13 @@ const MarkdownRenderer = ({ content, isHuman }) => {
             className="prose prose-invert prose-sm max-w-none"
             components={{
                 code: (props) => <CodeBlock {...props} isHuman={isHuman} />,
+                pre: ({ children }) => (
+                    <div className="px-0 py-0 rounded-lg overflow-hidden">
+                        {children}
+                    </div>
+                ),
                 p: ({ children }) => (
-                    <p className="my-1.5 leading-relaxed text-gray-200">{children}</p>
+                    <p className="my-1 leading-relaxed text-gray-200">{children}</p>
                 ),
                 a: ({ children, href }) => (
                     <a href={href} className="text-blue-400 hover:text-blue-300 underline" target="_blank" rel="noopener noreferrer">
@@ -136,18 +141,18 @@ const MarkdownRenderer = ({ content, isHuman }) => {
                 ),
                 ul: ({ children, className }) => {
                     if (className === 'contains-task-list') {
-                        return <ul className="list-none ml-2 my-2 text-gray-200">{children}</ul>;
+                        return <ul className="list-none my-1 text-gray-200">{children}</ul>;
                     }
-                    return <ul className="list-disc list-outside ml-6 my-2 text-gray-200">{children}</ul>;
+                    return <ul className="list-disc list-outside ml-4 my-1 text-gray-200">{children}</ul>;
                 },
                 ol: ({ children }) => (
-                    <ol className="list-decimal list-outside ml-6 my-2 text-gray-200">{children}</ol>
+                    <ol className="list-decimal list-outside ml-4 my-1 text-gray-200">{children}</ol>
                 ),
                 li: ({ children, className }) => {
                     if (className === 'task-list-item') {
-                        return <li className="flex items-center space-x-2 text-gray-200">{children}</li>;
+                        return <li className="flex items-center gap-2 text-gray-200 my-0.5">{children}</li>;
                     }
-                    return <li className="pl-1 marker:text-gray-500 text-gray-200">{children}</li>;
+                    return <li className="my-0.5 marker:text-gray-500 text-gray-200">{children}</li>;
                 },
                 input: ({ checked }) => (
                     <input
@@ -163,10 +168,10 @@ const MarkdownRenderer = ({ content, isHuman }) => {
                     </blockquote>
                 ),
                 h1: ({ children }) => (
-                    <h1 className="text-2xl font-bold my-4 text-gray-200">{children}</h1>
+                    <h1 className="text-2xl font-bold my-3 text-gray-200">{children}</h1>
                 ),
                 h2: ({ children }) => (
-                    <h2 className="text-xl font-semibold my-3 text-gray-200">{children}</h2>
+                    <h2 className="text-xl font-semibold my-2 text-gray-200">{children}</h2>
                 ),
                 h3: ({ children }) => (
                     <h3 className="text-lg font-semibold my-2 text-gray-200">{children}</h3>

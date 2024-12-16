@@ -18,19 +18,20 @@ const CodeBlock = ({ node, inline, className, children, isHuman, title, ...props
     if (!inline && match) {
         const language = match ? match[1].toLowerCase() : 'text';
         return (
-            <div className="my-4 rounded-lg overflow-hidden">
-                <div className="bg-gray-800 px-4 py-2 text-xs text-gray-200">
+            <div className="rounded-lg overflow-hidden">
+                <div className="bg-gray-800 px-4 py-1.5 text-xs text-gray-200">
                     <span>{title || language}</span>
                 </div>
                 <SyntaxHighlighter
                     style={dracula}
                     language={language}
-                    PreTag="div"
                     showLineNumbers={true}
                     customStyle={{
                         margin: 0,
+                        padding: '0.75rem 1rem',
                         borderTopLeftRadius: 0,
                         borderTopRightRadius: 0,
+                        fontSize: '0.875rem',
                     }}
                     {...props}
                 >
@@ -43,7 +44,7 @@ const CodeBlock = ({ node, inline, className, children, isHuman, title, ...props
     return (
         <code
             className={classNames(
-                "bg-gray-700 text-gray-100 rounded px-1.5 py-0.5 text-sm",
+                "bg-gray-700 text-gray-100 rounded px-1.5 py-0.5 text-sm whitespace-pre-wrap break-words",
                 { "text-white": isHuman }
             )}
             {...props}
