@@ -16,7 +16,7 @@ function ChatMessage({ chat }) {
         <div className={`flex items-start gap-4 ${isUser ? 'flex-row-reverse' : ''}`}>
             <ChatMessageAvatar isUser={isUser} />
             <div
-                className={`rounded-lg p-3 max-w-[85%] ${isUser ? 'bg-shareClaude-userChat' : 'bg-shareClaude-claudeChat'
+                className={`rounded-lg p-3 max-w-[70%] ${isUser ? 'bg-shareClaude-userChat' : 'bg-shareClaude-claudeChat'
                     }`}
             >
                 <div className="break-words">

@@ -123,7 +123,7 @@ const MarkdownRenderer = ({ content, isHuman }) => {
         <ReactMarkdown
             key={index}
             remarkPlugins={[remarkGfm]}
-            className="prose prose-invert prose-sm max-w-none"
+            className="prose-invert prose-sm max-w-none"
             components={{
                 code: (props) => <CodeBlock {...props} isHuman={isHuman} />,
                 pre: ({ children }) => (
