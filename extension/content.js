@@ -4,6 +4,8 @@ let organizationId = ''
 
 const shareIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share-2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>`
 
+const loaderSVG = `<svg width="20px" height="20px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none" class="animate-spin text-white"><g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8z" opacity=".2"/><path d="M7.25.75A.75.75 0 018 0a8 8 0 018 8 .75.75 0 01-1.5 0A6.5 6.5 0 008 1.5a.75.75 0 01-.75-.75z"/></g></svg>`
+
 async function getOrganizationId() {
 	// If organizationId is already set, return it
 	if (organizationId) return organizationId
@@ -22,7 +24,10 @@ async function getOrganizationId() {
 
 		const data = await response.json()
 		if (data?.length > 0) {
-			return data[0].uuid
+			const chatOrg = data.find((org) => org.capabilities?.includes('chat'))
+			if (chatOrg) {
+				return chatOrg.uuid
+			}
 		}
 
 		throw new Error('No organization found')
@@ -128,23 +133,34 @@ function addShareButton() {
 			return
 		}
 
+		button.innerHTML = loaderSVG
+		button.disabled = true
+
 		const messages = await getConversationMessages({
 			organizationId,
 			conversationId
 		})
 		if (!messages) {
 			alert('Failed to get conversation messages')
+			button.innerHTML = shareIconSVG
+			button.disabled = false
 			return
 		}
 
 		const shareURL = await getShareURL(messages)
 		if (!shareURL) {
 			alert('Failed to generate share URL')
+			button.innerHTML = shareIconSVG
+			button.disabled = false
 			return
 		}
 
 		navigator.clipboard.writeText(shareURL)
 		window.open(shareURL, '_blank')
+
+		// Reset button after the action
+		button.innerHTML = shareIconSVG
+		button.disabled = false
 	})
 
 	const uploadButton = document.querySelector(
