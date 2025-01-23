@@ -5,6 +5,8 @@ let organizationId = ''
 const shareIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share-2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>`
 
 const loaderSVG = `<svg width="20px" height="20px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none" class="animate-spin text-white"><g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"><path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8z" opacity=".2"/><path d="M7.25.75A.75.75 0 018 0a8 8 0 018 8 .75.75 0 01-1.5 0A6.5 6.5 0 008 1.5a.75.75 0 01-.75-.75z"/></g></svg>`
+// Store artifacts content globally for updates
+const artifactsCache = new Map()
 
 async function getOrganizationId() {
 	// If organizationId is already set, return it
@@ -42,6 +44,109 @@ function getConversationId() {
 	return match?.[1] || null
 }
 
+function processAttachments(attachments) {
+	if (!attachments?.length) return ''
+
+	return attachments
+		.map(({ file_type, file_name, extracted_content }) => {
+			const fileType = file_type?.split('/')[1] || file_type
+			if (fileType) {
+				return `\n\n${file_name}:\n\n\`\`\`${fileType}\n${extracted_content}\n\`\`\``
+			}
+			return `\n\n${file_name}:\n\n${extracted_content}`
+		})
+		.join('')
+}
+
+function processArtifact(item) {
+	const { id, type, language, content, command, old_str, new_str, title } =
+		item.input
+
+	if (!id) return ''
+
+	// Build artifact properties
+	const artifactProps = {
+		identifier: id,
+		type: type || artifactsCache.get(id)?.artifactType,
+		title: title || id,
+		language: language || artifactsCache.get(id)?.language
+	}
+
+	const propString = Object.entries(artifactProps)
+		.filter(([_, value]) => value)
+		.map(([key, value]) => `${key}="${value}"`)
+		.join(' ')
+
+	// Handle content updates
+	if (command === 'update' && old_str && new_str) {
+		const artifactData = artifactsCache.get(id)
+		if (!artifactData?.content) return ''
+
+		artifactData.content = artifactData.content.replace(old_str, new_str)
+		artifactsCache.set(id, artifactData)
+		return formatArtifactOutput(propString, artifactData.content)
+	}
+
+	// Handle content creation/rewrite or otherwise
+	if (content) {
+		const artifactData =
+			command === 'rewrite'
+				? { ...artifactsCache.get(id), content }
+				: { content, artifactType: type, language }
+
+		artifactsCache.set(id, artifactData)
+		return formatArtifactOutput(propString, content)
+	}
+
+	return ''
+}
+
+function formatArtifactOutput(props, content) {
+	return `\n<antArtifact ${props}>\n${content}\n</antArtifact>\n`
+}
+
+function processREPL({ input: { code = '' } }) {
+	return code ? `\n\`\`\`javascript\n${code}\n\`\`\`\n` : ''
+}
+
+function processContentItem(item) {
+	switch (item.type) {
+		case 'text':
+			return item.text
+		case 'tool_use':
+			if (item.name === 'artifacts') {
+				return processArtifact(item)
+			} else if (item.name === 'repl') {
+				return processREPL(item)
+			}
+			//handle other tool_use items
+			return ''
+		default:
+			return ''
+	}
+}
+
+function processMessage(msg) {
+	const { sender, content, attachments } = msg
+	let message = ''
+
+	// if content has only single item -> old message format else new message format
+	if (content.length === 1) {
+		message = content[0].text
+	} else {
+		message = content.map(processContentItem).join('')
+	}
+
+	if (sender === 'human') {
+		message += processAttachments(attachments)
+	}
+
+	return {
+		source: sender === 'human' ? 'user' : 'claude',
+		message: message.trim()
+	}
+}
+
 async function getConversationMessages({ organizationId, conversationId }) {
 	if (!organizationId || !conversationId) return null
 
@@ -62,31 +167,9 @@ async function getConversationMessages({ organizationId, conversationId }) {
 		}
 
 		const data = await response.json()
-		const messages = data.chat_messages.map((msg) => {
-			const { sender, content, attachments } = msg
-			let message = content[0].text
-
-			if (sender === 'human' && attachments.length > 0) {
-				for (const attachment of attachments) {
-					const { file_type, file_name, extracted_content } = attachment
-					const fileType = file_type?.split('/')[1] || file_type
-					if (fileType) {
-						message += `\n\n${file_name}:\n\n\`\`\`${fileType}\n${extracted_content}\n\`\`\``
-					} else {
-						message += `\n\n${file_name}:\n\n${extracted_content}`
-					}
-				}
-			}
-
-			return {
-				source: sender === 'human' ? 'user' : 'claude',
-				message
-			}
-		})
-
 		return {
 			title: data.name,
-			content: messages
+			content: data.chat_messages.map(processMessage)
 		}
 	} catch (error) {
 		console.error('Error fetching conversation:', error)
@@ -109,6 +192,8 @@ async function getShareURL(messages) {
 		}
 
 		const { id } = await response.json()
+		// Clear artifacts content after successful share
+		artifactsCache.clear()
 		return `${PAGE_URL}/c/${id}`
 	} catch (error) {
 		console.error('Error getting share URL:', error)
