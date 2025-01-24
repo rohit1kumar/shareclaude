@@ -44,18 +44,22 @@ function getConversationId() {
 	return match?.[1] || null
 }
 
-function processAttachments(attachments) {
-	if (!attachments?.length) return ''
+function processAttachments({ attachments = [], files = [] }) {
+	const formatAttachment = ({ file_type, file_name, extracted_content }) => {
+		const fileType = file_type?.split('/')[1] || file_type
+		const content = fileType
+			? `\`\`\`${fileType}\n${extracted_content}\n\`\`\``
+			: extracted_content
 
-	return attachments
-		.map(({ file_type, file_name, extracted_content }) => {
-			const fileType = file_type?.split('/')[1] || file_type
-			if (fileType) {
-				return `\n\n${file_name}:\n\n\`\`\`${fileType}\n${extracted_content}\n\`\`\``
-			}
-			return `\n\n${file_name}:\n\n${extracted_content}`
-		})
-		.join('')
+		return `\n\n${file_name}:\n\n${content}`
+	}
+
+	const formatFile = ({ file_name }) =>
+		file_name ? `\n\n${file_name} (can't show blob content)\n\n` : ''
+
+	return (
+		attachments.map(formatAttachment).join('') + files.map(formatFile).join('')
+	)
 }
 
 function processArtifact(item) {
@@ -127,7 +131,7 @@ function processContentItem(item) {
 }
 
 function processMessage(msg) {
-	const { sender, content, attachments } = msg
+	const { sender, content, attachments, files_v2 } = msg
 	let message = ''
 
 	// if content has only single item -> old message format else new message format
@@ -138,7 +142,7 @@ function processMessage(msg) {
 	}
 
 	if (sender === 'human') {
-		message += processAttachments(attachments)
+		message += processAttachments({ attachments, files: files_v2 })
 	}
 
 	return {
