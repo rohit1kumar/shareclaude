@@ -19,22 +19,27 @@ function Home() {
                         Instantly share your Claude.AI conversations with anyone. A simple Chrome extension
                         that makes collaboration effortless.
                     </p>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <a
-                            href="https://chromewebstore.google.com/detail/pcpjdbnjhgofgjgegodlnebdnmiddmaa"
-                            target="_blank"
-                            className="inline-flex items-center px-6 py-3 rounded-lg bg-shareClaude-accent text-white text-lg font-semibold hover:bg-shareClaude-accent/80"
-                        >
-                            <Chrome className="h-6 w-6 mr-2" />
-                            Add to Chrome
-                        </a>
-                        <Link
-                            to="/c/rhxw367ndulkfr24a5hssm5u"
-                            className="inline-flex items-center px-6 py-3 rounded-lg border-2 border-shareClaude-accent text-shareClaude-accent text-lg font-semibold hover:bg-shareClaude-accent hover:text-white"
-                        >
-                            <Link2 className="h-6 w-6 mr-2" />
-                            Get Share Link
-                        </Link>
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            <a
+                                href="https://chromewebstore.google.com/detail/pcpjdbnjhgofgjgegodlnebdnmiddmaa"
+                                target="_blank"
+                                className="inline-flex items-center px-6 py-3 rounded-lg bg-shareClaude-accent text-white text-lg font-semibold hover:bg-shareClaude-accent/80"
+                            >
+                                <Chrome className="h-6 w-6 mr-2" />
+                                Add to Chrome <span className="text-xs align-top ml-1">*</span>
+                            </a>
+                            <Link
+                                to="/c/rhxw367ndulkfr24a5hssm5u"
+                                className="inline-flex items-center px-6 py-3 rounded-lg border-2 border-shareClaude-accent text-shareClaude-accent text-lg font-semibold hover:bg-shareClaude-accent hover:text-white"
+                            >
+                                <Link2 className="h-6 w-6 mr-2" />
+                                Get Share Link
+                            </Link>
+                        </div>
+                        <p className="text-xs text-gray-400 opacity-75">
+                            * Compatible with Edge & Brave
+                        </p>
                     </div>
                 </div>
 
